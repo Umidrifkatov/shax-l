@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "Наши услуги" %} - Ezoz Logistics Group{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-primary text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-heading font-extrabold mb-4">{% trans "Логистические услуги" %}</h1>
+        <p class="text-white/60 text-xl max-w-2xl mx-auto">
+            {% trans "Мы предлагаем комплексные решения для транспортировки любых типов грузов по всему миру." %}
+        </p>
+    </div>
+</section>
+
+<section class="py-24 bg-light">
+    <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for service in services %}
+            <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden border border-slate-100">
+                <div class="p-8">
+                    <div class="w-16 h-16 bg-primary/5 rounded-xl flex items-center justify-center mb-8 text-primary group-hover:bg-primary group-hover:text-white transition">
+                        <i class="fas fa-{{ service.icon }} text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-heading font-extrabold mb-4">{{ service.title }}</h3>
+                    <p class="text-slate-500 mb-8 leading-relaxed">
+                        {{ service.description|truncatewords:25 }}
+                    </p>
+                    <a href="{{ service.get_absolute_url }}" class="inline-flex items-center font-bold text-primary hover:text-accent transition">
+                        {% trans "Подробнее об услуге" %} <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

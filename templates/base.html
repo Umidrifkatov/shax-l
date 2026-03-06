@@ -1,0 +1,132 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ezoz Logistics Group{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a3a5c',
+                        accent: '#e8a020',
+                        dark: '#0d1f33',
+                        light: '#f4f7fb',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="bg-light text-slate-800 font-sans flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-primary text-white sticky top-0 z-50 shadow-lg">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{% url 'core:index' %}" class="flex items-center space-x-2">
+                <span class="text-2xl font-heading font-extrabold tracking-tighter text-accent">EZOZ</span>
+                <span class="text-sm font-bold uppercase tracking-widest border-l pl-2 border-white/20 hidden sm:block">Logistics Group</span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="{% url 'core:index' %}" class="hover:text-accent transition">{% trans "Главная" %}</a>
+                <a href="{% url 'core:about' %}" class="hover:text-accent transition">{% trans "О компании" %}</a>
+                <a href="{% url 'services:list' %}" class="hover:text-accent transition">{% trans "Услуги" %}</a>
+                <a href="{% url 'contacts:contact' %}" class="hover:text-accent transition">{% trans "Контакты" %}</a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <div class="flex space-x-2 text-xs font-bold uppercase">
+                    <form action="{% url 'set_language' %}" method="post" class="flex items-center space-x-2">{% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                        <button name="language" value="ru" class="{% if LANGUAGE_CODE == 'ru' %}text-accent{% else %}text-white/60{% endif %} hover:text-white transition">RU</button>
+                        <span class="text-white/20">|</span>
+                        <button name="language" value="uz-cyrl" class="{% if LANGUAGE_CODE == 'uz-cyrl' %}text-accent{% else %}text-white/60{% endif %} hover:text-white transition">УЗ</button>
+                        <span class="text-white/20">|</span>
+                        <button name="language" value="uz-latn" class="{% if LANGUAGE_CODE == 'uz-latn' %}text-accent{% else %}text-white/60{% endif %} hover:text-white transition">UZ</button>
+                    </form>
+                </div>
+                <a href="{% url 'contacts:contact' %}" class="bg-accent hover:bg-white hover:text-primary text-primary px-4 py-2 rounded font-bold transition text-sm hidden lg:block">
+                    {% trans "Запрос ставки" %}
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow">
+        {% if messages %}
+            <div class="container mx-auto px-4 mt-4">
+                {% for message in messages %}
+                    <div class="p-4 mb-4 rounded-lg {% if message.tags == 'success' %}bg-green-100 text-green-700{% elif message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-blue-100 text-blue-700{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-8">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-8 mb-12 border-b border-white/10 pb-12">
+            <div>
+                <h3 class="text-xl font-heading font-bold mb-6 text-accent">EZOZ LOGISTICS</h3>
+                <p class="text-slate-400 leading-relaxed">
+                    {% trans "Ваш надежный партнер в мире глобальной логистики. Мы обеспечиваем доставку любой сложности в любую точку мира." %}
+                </p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase tracking-wider">{% trans "Навигация" %}</h4>
+                <ul class="space-y-4 text-slate-400">
+                    <li><a href="{% url 'core:about' %}" class="hover:text-accent transition">{% trans "О компании" %}</a></li>
+                    <li><a href="{% url 'services:list' %}" class="hover:text-accent transition">{% trans "Услуги" %}</a></li>
+                    <li><a href="{% url 'contacts:contact' %}" class="hover:text-accent transition">{% trans "Контакты" %}</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase tracking-wider">{% trans "Контакты" %}</h4>
+                <ul class="space-y-4 text-slate-400 text-sm">
+                    <li class="flex items-start">
+                        <i class="fas fa-map-marker-alt mt-1 mr-3 text-accent"></i>
+                        <span>г. Ташкент, Мирзо Улугбекский р-н, ул. Зиёлилар, 4</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-phone mr-3 text-accent"></i>
+                        <a href="tel:+998909758333">+998 90 975-83-33</a>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-envelope mr-3 text-accent"></i>
+                        <a href="mailto:info@ezozlogistics.uz">info@ezozlogistics.uz</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 uppercase tracking-wider">{% trans "Мы в соцсетях" %}</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 bg-white/5 flex items-center justify-center rounded-full hover:bg-accent hover:text-primary transition"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="#" class="w-10 h-10 bg-white/5 flex items-center justify-center rounded-full hover:bg-accent hover:text-primary transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 bg-white/5 flex items-center justify-center rounded-full hover:bg-accent hover:text-primary transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 bg-white/5 flex items-center justify-center rounded-full hover:bg-accent hover:text-primary transition"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center text-slate-500 text-sm">
+            &copy; 2024 Ezoz Logistics Group. All rights reserved.
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

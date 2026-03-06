@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load i18n static crispy_forms_tags %}
+
+{% block title %}{% trans "Контакты и Заявка" %} - Ezoz Logistics Group{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-primary text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-heading font-extrabold mb-4">{% trans "Свяжитесь с нами" %}</h1>
+        <p class="text-white/60 text-xl max-w-2xl mx-auto">
+            {% trans "Мы работаем 24/7, чтобы ваши грузы доставлялись вовремя." %}
+        </p>
+    </div>
+</section>
+
+<section class="py-24 bg-light">
+    <div class="container mx-auto px-4">
+        <div class="grid lg:grid-cols-3 gap-12">
+            <!-- Contact Info -->
+            <div class="lg:col-span-1 space-y-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-6 text-accent">
+                        <i class="fas fa-phone text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">{% trans "Телефон" %}</h4>
+                    <p class="text-slate-500 mb-4">{% trans "Для общих вопросов и заказов:" %}</p>
+                    <a href="tel:+998909758333" class="text-2xl font-heading font-extrabold text-primary hover:text-accent transition">+998 90 975-83-33</a>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-6 text-accent">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Email</h4>
+                    <p class="text-slate-500 mb-4">{% trans "Пишите нам по любым вопросам:" %}</p>
+                    <a href="mailto:info@ezozlogistics.uz" class="text-xl font-heading font-extrabold text-primary hover:text-accent transition">info@ezozlogistics.uz</a>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                    <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-6 text-accent">
+                        <i class="fas fa-map-marker-alt text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">{% trans "Адрес" %}</h4>
+                    <p class="text-slate-500 leading-relaxed">
+                        г. Ташкент, Мирзо Улугбекский р-н, ул. Зиёлилар, 4
+                    </p>
+                </div>
+            </div>
+
+            <!-- Request Form -->
+            <div class="lg:col-span-2">
+                <div class="bg-white p-8 md:p-12 rounded-3xl shadow-xl">
+                    <h3 class="text-3xl font-heading font-extrabold text-primary mb-8 text-center">{% trans "Запрос на расчет перевозки" %}</h3>
+                    {% crispy form %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-[80vh] flex items-center overflow-hidden bg-dark">
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent z-10"></div>
+        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover" alt="Logistics Hero">
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-20">
+        <div class="max-w-2xl">
+            <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-white mb-6 leading-tight">
+                {% trans "Логистика без границ" %}
+            </h1>
+            <p class="text-xl text-slate-300 mb-10 leading-relaxed">
+                {% trans "Надежные грузоперевозки по всему миру. С нами ваш груз всегда в безопасности и вовремя." %}
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="{% url 'contacts:contact' %}" class="bg-accent hover:bg-white text-primary px-8 py-4 rounded-lg font-bold text-lg transition shadow-xl text-center">
+                    {% trans "Рассчитать стоимость" %}
+                </a>
+                <a href="{% url 'services:list' %}" class="border-2 border-white/30 hover:border-white text-white px-8 py-4 rounded-lg font-bold text-lg transition text-center">
+                    {% trans "Наши услуги" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-12 bg-white border-b">
+    <div class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center">
+            <div class="text-4xl font-heading font-extrabold text-primary mb-2">10+</div>
+            <div class="text-slate-500 font-medium uppercase tracking-widest text-xs">{% trans "Лет опыта" %}</div>
+        </div>
+        <div class="text-center">
+            <div class="text-4xl font-heading font-extrabold text-primary mb-2">5000+</div>
+            <div class="text-slate-500 font-medium uppercase tracking-widest text-xs">{% trans "Грузов в год" %}</div>
+        </div>
+        <div class="text-center">
+            <div class="text-4xl font-heading font-extrabold text-primary mb-2">50+</div>
+            <div class="text-slate-500 font-medium uppercase tracking-widest text-xs">{% trans "Стран охвата" %}</div>
+        </div>
+        <div class="text-center">
+            <div class="text-4xl font-heading font-extrabold text-primary mb-2">100%</div>
+            <div class="text-slate-500 font-medium uppercase tracking-widest text-xs">{% trans "Гарантия сохранности" %}</div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Preview -->
+<section class="py-24 bg-light">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-end mb-16">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-primary mb-4">{% trans "Наши услуги" %}</h2>
+                <p class="text-slate-500 max-w-lg">{% trans "Мы предлагаем полный спектр логистических решений для любого бизнеса." %}</p>
+            </div>
+            <a href="{% url 'services:list' %}" class="text-primary font-bold border-b-2 border-accent pb-1 hover:text-accent transition">
+                {% trans "Все услуги" %} &rarr;
+            </a>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            {% for service in services %}
+            <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 group border-b-4 border-transparent hover:border-accent">
+                <div class="w-16 h-16 bg-primary/5 rounded-xl flex items-center justify-center mb-8 text-primary group-hover:bg-primary group-hover:text-white transition">
+                    <i class="fas fa-{{ service.icon }} text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-heading font-extrabold mb-4">{{ service.title }}</h3>
+                <p class="text-slate-500 mb-8 line-clamp-3 leading-relaxed">
+                    {{ service.description }}
+                </p>
+                <a href="{{ service.get_absolute_url }}" class="font-bold text-primary group-hover:text-accent inline-flex items-center">
+                    {% trans "Подробнее" %} <i class="fas fa-chevron-right ml-2 text-xs"></i>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Why Us Section -->
+<section class="py-24 bg-white overflow-hidden">
+    <div class="container mx-auto px-4 grid md:grid-cols-2 gap-16 items-center">
+        <div class="relative">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl"></div>
+            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop" class="rounded-3xl shadow-2xl relative z-10" alt="Why Choose Us">
+        </div>
+        <div>
+            <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-primary mb-12">{% trans "Почему выбирают EZOZ?" %}</h2>
+            <div class="space-y-8">
+                <div class="flex items-start">
+                    <div class="w-12 h-12 shrink-0 bg-accent text-primary flex items-center justify-center rounded-full mr-6 font-bold">01</div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2">{% trans "Индивидуальные решения" %}</h4>
+                        <p class="text-slate-500">{% trans "Мы разрабатываем маршруты, исходя из специфики вашего груза и бюджета." %}</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="w-12 h-12 shrink-0 bg-accent text-primary flex items-center justify-center rounded-full mr-6 font-bold">02</div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2">{% trans "Полная прозрачность" %}</h4>
+                        <p class="text-slate-500">{% trans "Вы всегда знаете, где находится ваш груз благодаря современным системам трекинга." %}</p>
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <div class="w-12 h-12 shrink-0 bg-accent text-primary flex items-center justify-center rounded-full mr-6 font-bold">03</div>
+                    <div>
+                        <h4 class="text-lg font-bold mb-2">{% trans "Соблюдение сроков" %}</h4>
+                        <p class="text-slate-500">{% trans "Мы ценим ваше время и гарантируем доставку в оговоренные сроки." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

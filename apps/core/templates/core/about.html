@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "О компании" %} - Ezoz Logistics Group{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-primary text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-heading font-extrabold mb-4">{% trans "О компании" %}</h1>
+        <p class="text-white/60 text-xl max-w-2xl mx-auto">
+            {% trans "Ezoz Logistics Group — ваш надежный партнер в глобальной логистике." %}
+        </p>
+    </div>
+</section>
+
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="prose prose-xl text-slate-600 leading-relaxed mx-auto">
+            <p class="mb-8">
+                {% trans "Мы — динамично развивающаяся логистическая компания, предоставляющая полный спектр услуг по перевозке грузов. Наша миссия — упростить глобальную торговлю, обеспечивая безопасную и своевременную доставку грузов любого масштаба." %}
+            </p>
+            <h2 class="text-3xl font-heading font-extrabold text-primary mt-12 mb-6">{% trans "Наши ценности" %}</h2>
+            <div class="grid md:grid-cols-2 gap-8 not-prose">
+                <div class="p-6 bg-light rounded-2xl border-l-4 border-accent">
+                    <h4 class="font-bold text-lg mb-2 text-primary">{% trans "Надежность" %}</h4>
+                    <p class="text-slate-500">{% trans "Мы берем на себя полную ответственность за сохранность вашего груза." %}</p>
+                </div>
+                <div class="p-6 bg-light rounded-2xl border-l-4 border-accent">
+                    <h4 class="font-bold text-lg mb-2 text-primary">{% trans "Скорость" %}</h4>
+                    <p class="text-slate-500">{% trans "Оптимальные маршруты и отточенные процессы позволяют нам доставлять быстрее." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
