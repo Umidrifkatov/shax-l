@@ -20,7 +20,7 @@ services:
   web:
     build: .
     container_name: ezoz_web
-    command: /app/scripts/entrypoint.sh
+    command: bash /app/scripts/entrypoint.sh
     volumes:
       - .:/app
       - static_volume:/app/staticfiles
